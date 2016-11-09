@@ -11,7 +11,14 @@
         </div>
         <div class="form-group">
             <label for="p1">Bilangan I</label>
-            <input type="number" name="p1" class="form-control" placeholder="Angka Pertama" step="any" required />
+            @if (!(bool)ViewData["I"])
+            {
+                <input type="number" name="p1" class="form-control" placeholder="Angka Pertama" step="any" value="@ViewData["Hasil"]" required />
+            }
+            @if((bool) ViewData["I"]){ 
+                <input type="number" name="p1" class="form-control" placeholder="Angka Pertama" step="any" required />
+            }
+            
         </div>
         <div class="form-group">
             <label for="op">Operator</label>

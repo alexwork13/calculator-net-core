@@ -16,12 +16,14 @@ namespace Calculator.Controllers
         {
             ViewData["Title"] = "Calculator";
             ViewData["Hasil"] = 0;
+            ViewData["I"] = true;
             return View();
         }
 
         [HttpPost]
         public IActionResult Index(SimpleEquation simpleEquation)
         {
+            ViewData["I"] = false;
             float hasil = 0.0f;
             switch (simpleEquation.op)
             {
