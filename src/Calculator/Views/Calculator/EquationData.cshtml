@@ -1,0 +1,65 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    List<char> variables = (List<char>) ViewData["Variables"];
+    int size = variables.Count();
+    List<String> names = new List<String>();
+
+    foreach( char c in variables)
+    {
+        names.Add(c+"[]");
+    }
+}
+
+<p></p>
+<center>
+    <div class="form-group">
+        <label for="equation">Persamaan: </label>
+        <h2 style="margin-top : 0px;">@ViewData["Equation"]</h2>
+    </div>
+    <form asp-controller="Calculator" asp-action="EquationResult" method="post">
+        <input type="hidden" value="@ViewData["Equation"]" name="equation">
+        <table class="table table-bordered table-hover">
+            <style>
+                td, th{
+                    text-align : center;
+                }
+            </style>
+            <thead>
+                @foreach (char c in variables)
+                {
+                    <th>@c</th>
+                }
+
+                <th>
+                    Hasil
+                </th>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < 3; i++)
+                {
+                    <tr>
+                        @foreach (String name in names)
+                        {
+                            <td>
+                                <input type="number" step="any" placeholder="Nilai" name="@name " class="form-control" required>
+                            </td>
+                        }
+
+                        <td>
+                            <input type="number" step="any" placeholder="Nilai" name="" class="form-control" readonly>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <button class="btn btn-success">Lihat Hasil</button>
+    </form>
+</center>
+
+<script>
+    var len = @size;
+    var variables = [];
+</script>

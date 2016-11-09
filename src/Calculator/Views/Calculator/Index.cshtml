@@ -3,7 +3,7 @@
 *@
 
 <p>&nbsp</p>
-<form action="/Calculator/Index" method="post">
+<form asp-area="" asp-controller="Calculator" asp-action="Index" method="post">
     <div class="form-group">
         <label for="hasil">Hasil</label>
         <input name="hasil" type="text" readonly value="@ViewData["Hasil"]" class="form-control">

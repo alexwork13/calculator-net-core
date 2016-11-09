@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v1.0",
-    "signature": "943276bd15ec7ab571f2bddd6761d660c75b21cc"
+    "signature": "f10cafe41f95cca47d6debfb2428883f5e699f68"
   },
   "compilationOptions": {
     "defines": [
@@ -1293,6 +1293,7 @@
           "lib/netstandard1.5/Microsoft.VisualStudio.Web.BrowserLink.Loader.dll": {}
         }
       },
+      "ncalc/1.3.8": {},
       "Newtonsoft.Json/9.0.1": {
         "dependencies": {
           "Microsoft.CSharp": "4.0.1",
@@ -3669,6 +3670,11 @@
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-f01OAOfsctcN7gSa05qYK8AgU1E/BFeZizvszNJMXY3BMJbYSj+3+YqyLunkMSf7LN92kcl7gQsAY9FayEH3ag=="
+    },
+    "ncalc/1.3.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-2m3UsU0r4kZO56shwZGDiiUHGAlhbRoCNbkOYz6CBsGWj41F+srfirtMTpVGO+UXAAl10Bi5eTSqPKXtQr18NA=="
     },
     "Newtonsoft.Json/9.0.1": {
       "type": "package",

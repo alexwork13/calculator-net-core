@@ -5,3 +5,14 @@
 
 }
 
+<p>&nbsp</p>
+
+<p>Anda dapat menempatkan persamaan untuk menghitung serangkaian data dengan operasi yang sama. Pertama, masukan persamaan Anda dengan menggunakan huruf kapital A-Z sebagai variabel untuk persamaan Anda. Misalnya, jika Anda ingin mengkonversi panjang dari meter untuk cm, Anda harus memasukkan A * 100.</p>
+
+<form asp-area="" asp-controller="Calculator" asp-action="EquationData">
+    <div class="form-group">
+        <label for="eq">Persamaan</label>
+        <input type="text" placeholder="Persamaan" name="equation" class="form-control" required>
+    </div>
+    <button class="btn btn-default">Isi Data untuk Persamaan</button>    
+</form>

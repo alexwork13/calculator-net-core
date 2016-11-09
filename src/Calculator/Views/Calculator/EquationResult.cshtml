@@ -1,0 +1,66 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    List<char> variables = (List<char>)ViewData["Variables"];
+    Dictionary<char, List<double>> datas = (Dictionary<char, List<double>>)ViewData["Datas"];
+    List<String> expressions = (List<String>)ViewData["Expressions"];
+}
+
+<p></p>
+<center>
+    <div class="form-group">
+        <label for="equation">Persamaan: </label>
+        <h2 style="margin-top : 0px;">@ViewData["Equation"]</h2>
+    </div>
+    <form asp-controller="Calculator" asp-action="EquationResult" method="post">
+        <input type="hidden" value="@ViewData["Equation"]" name="equation">
+        <table class="table table-bordered table-hover">
+            <style>
+                td, th{
+                    text-align : center;
+                }
+            </style>
+            <thead>
+                @foreach (char c in variables)
+                {
+                    <th>@c</th>
+                }
+
+                <th>
+                    Hasil
+                </th>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < 3; i++)
+                {
+                    <tr>
+                        
+                        @foreach (char c in variables)
+                        {
+                            @{ 
+                                double value = datas[c].ElementAt(i);
+                            }
+                            <td>
+                                <input type="number" step="any" placeholder="Nilai" class="form-control" value="@value" readonly>
+                            </td>
+                                }
+
+                        @{
+                            String id = "hasil" + i;
+                        }
+                        <td>   
+                            <input type="number" step="any" placeholder="Nilai" id="@id" class="form-control" readonly>
+                        </td>
+                    </tr>
+                            }
+            </tbody>
+        </table>
+
+        <button class="btn btn-success">Lihat Hasil</button>
+    </form>
+</center>
+
+<script>
+    var hasil = [@foreach (String exp in expressions) { @{String hsl = exp + " , ";} @hsl}];
+</script>

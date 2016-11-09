@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
+
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Calculator.Controllers
@@ -64,11 +65,81 @@ namespace Calculator.Controllers
             return View();
         }
 
-        public IActionResult EquationData()
+        [HttpPost]
+        public IActionResult EquationData(String equation)
         {
-            ViewData["Title"] = "Equation";
+            ViewData["Title"] = "Equation Data";
+            ViewData["Equation"] = equation;
+
+            List<char> variables = new List<char>();
+
+            for(char i='A'; i<='Z'; i++)
+            {
+                if (equation.Contains(i))
+                {
+                    variables.Add(i);
+                }
+            }
+
+            ViewData["Variables"] = variables;
+
             return View();
         }
+
+        [HttpPost]
+        public IActionResult EquationResult(String equation)
+        {
+            ViewData["Equation"] = equation;
+
+            List<char> variables = new List<char>();
+
+            for (char i = 'A'; i <= 'Z'; i++)
+            {
+                if (equation.Contains(i))
+                {
+                    variables.Add(i);
+                }
+            }
+
+            Dictionary<char, List<double>> datas = new Dictionary<char, List<double>>();
+             
+            foreach (char c in variables)
+            {
+                //Get All Data from Form Based on Variable
+                String all = HttpContext.Request.Form[c+""];
+                String[] items = all.Split(',');
+                List<double> doubles = new List<double>();
+
+                foreach(String item in items)
+                {
+                    doubles.Add(Convert.ToDouble(item));
+                }
+
+                datas.Add(c,doubles);
+            }
+
+            // Calculate each question to Javascript
+            ViewData["Datas"] = datas;
+
+            List<String> expressions = new List<String>();
+            int size = datas.ElementAt(0).Value.Count;
+
+            for (int i = 0; i < size; i++)
+            {
+                String expression = equation;
+                foreach(char c in variables)
+                {
+                    expression = expression.Replace(c+"",datas[c].ElementAt(i)+"");
+                }
+
+                expressions.Add(expression);
+            }
+
+            ViewData["Expressions"] = expressions;
+            return View();
+        }
+
+        
     }
 
     public class SimpleEquation
