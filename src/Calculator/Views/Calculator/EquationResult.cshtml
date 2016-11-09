@@ -5,6 +5,7 @@
     List<char> variables = (List<char>)ViewData["Variables"];
     Dictionary<char, List<double>> datas = (Dictionary<char, List<double>>)ViewData["Datas"];
     List<String> expressions = (List<String>)ViewData["Expressions"];
+    int count = (int)ViewData["Count"];
 }
 
 <p></p>
@@ -20,6 +21,11 @@
                 td, th{
                     text-align : center;
                 }
+                input.form-control{
+                    margin-left : auto;
+                    margin-right:auto;
+                    text-align:center;
+                }
             </style>
             <thead>
                 @foreach (char c in variables)
@@ -32,15 +38,13 @@
                 </th>
             </thead>
             <tbody>
-                @for (int i = 0; i < 3; i++)
+                @for (int i = 0; i < count; i++)
                 {
                     <tr>
                         
                         @foreach (char c in variables)
                         {
-                            @{ 
-                                double value = datas[c].ElementAt(i);
-                            }
+                            double value = datas[c].ElementAt(i);
                             <td>
                                 <input type="number" step="any" placeholder="Nilai" class="form-control" value="@value" readonly>
                             </td>
@@ -62,5 +66,14 @@
 </center>
 
 <script>
-    var hasil = [@foreach (String exp in expressions) { @{String hsl = exp + " , ";} @hsl}];
+    var hasil = [
+        @foreach (String exp in expressions) {
+            @exp
+        }
+    ];
+
+    for(var i in hasil){
+        $("#hasil" + i).val(hasil[i]);
+        console.log(i,hasil[i]);
+    }
 </script>

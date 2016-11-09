@@ -66,10 +66,11 @@ namespace Calculator.Controllers
         }
 
         [HttpPost]
-        public IActionResult EquationData(String equation)
+        public IActionResult EquationData(String equation, int count = 3)
         {
             ViewData["Title"] = "Equation Data";
             ViewData["Equation"] = equation;
+            ViewData["Count"] = count;
 
             List<char> variables = new List<char>();
 
@@ -87,10 +88,9 @@ namespace Calculator.Controllers
         }
 
         [HttpPost]
-        public IActionResult EquationResult(String equation)
+        public IActionResult EquationResult(String equation, int count = 3)
         {
-            ViewData["Equation"] = equation;
-
+            
             List<char> variables = new List<char>();
 
             for (char i = 'A'; i <= 'Z'; i++)
@@ -106,7 +106,7 @@ namespace Calculator.Controllers
             foreach (char c in variables)
             {
                 //Get All Data from Form Based on Variable
-                String all = HttpContext.Request.Form[c+""];
+                String all = HttpContext.Request.Form[c+"[]"];
                 String[] items = all.Split(',');
                 List<double> doubles = new List<double>();
 
@@ -117,10 +117,6 @@ namespace Calculator.Controllers
 
                 datas.Add(c,doubles);
             }
-
-            // Calculate each question to Javascript
-            ViewData["Datas"] = datas;
-
             List<String> expressions = new List<String>();
             int size = datas.ElementAt(0).Value.Count;
 
@@ -132,10 +128,14 @@ namespace Calculator.Controllers
                     expression = expression.Replace(c+"",datas[c].ElementAt(i)+"");
                 }
 
-                expressions.Add(expression);
+                expressions.Add(expression+" , ");
             }
 
             ViewData["Expressions"] = expressions;
+            ViewData["Equation"] = equation;
+            ViewData["Datas"] = datas;
+            ViewData["Variables"] = variables;
+            ViewData["Count"] = count;
             return View();
         }
 

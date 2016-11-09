@@ -3,6 +3,7 @@
 *@
 @{
     List<char> variables = (List<char>) ViewData["Variables"];
+    int count = (int)ViewData["count"];
     int size = variables.Count();
     List<String> names = new List<String>();
 
@@ -20,10 +21,16 @@
     </div>
     <form asp-controller="Calculator" asp-action="EquationResult" method="post">
         <input type="hidden" value="@ViewData["Equation"]" name="equation">
+        <input type="hidden" value="@ViewData["Count"]" name="count">
         <table class="table table-bordered table-hover">
             <style>
                 td, th{
                     text-align : center;
+                }
+                input.form-control{
+                    margin-left : auto;
+                    margin-right:auto;
+                    text-align:center;
                 }
             </style>
             <thead>
@@ -37,13 +44,13 @@
                 </th>
             </thead>
             <tbody>
-                @for (int i = 0; i < 3; i++)
+                @for (int i = 0; i < count; i++)
                 {
                     <tr>
                         @foreach (String name in names)
                         {
                             <td>
-                                <input type="number" step="any" placeholder="Nilai" name="@name " class="form-control" required>
+                                <input type="number" step="any" placeholder="Nilai" name="@name" class="form-control" required>
                             </td>
                         }
 
